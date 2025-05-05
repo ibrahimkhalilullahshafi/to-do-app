@@ -34,12 +34,12 @@ Ensure you have Node.js installed.
 
 1. Clone the repository:
    ```sh
-   git clone https://github.com/your-username/vite-react-shadcn-todo.git
+   git clone https://github.com/ibrahimkhalilullahshafi/to-do-app.git
    ```
    
 2. Navigate to the project directory:
    ```sh
-   cd vite-react-shadcn-todo
+   cd to-do-app
    ```
 
 3. Install dependencies:
