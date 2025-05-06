@@ -2,12 +2,12 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { toast } from '@/components/ui/sonner';
 
-const TodoContext = createContext(undefined);
+export const TodoContext = createContext(null);
 
 export function TodoProvider({ children }) {
   const [todos, setTodos] = useState([]);
   const [filter, setFilter] = useState('all');
-  
+
   // Load todos from localStorage on initial render
   useEffect(() => {
     const savedTodos = localStorage.getItem('todos');
@@ -20,16 +20,16 @@ export function TodoProvider({ children }) {
       }
     }
   }, []);
-  
+
   // Save todos to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem('todos', JSON.stringify(todos));
   }, [todos]);
-  
+
   // Add a new todo
   const addTodo = (title, description = '') => {
     if (!title.trim()) return;
-    
+
     const newTodo = {
       id: Date.now().toString(),
       title,
@@ -37,11 +37,11 @@ export function TodoProvider({ children }) {
       completed: false,
       createdAt: new Date().toISOString(),
     };
-    
+
     setTodos((prevTodos) => [...prevTodos, newTodo]);
     toast.success('Task added successfully!');
   };
-  
+
   // Toggle todo completion status
   const toggleTodo = (id) => {
     setTodos((prevTodos) =>
@@ -50,13 +50,13 @@ export function TodoProvider({ children }) {
       )
     );
   };
-  
+
   // Delete a todo
   const deleteTodo = (id) => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
     toast.success('Task deleted successfully!');
   };
-  
+
   // Get filtered todos based on current filter
   const filteredTodos = () => {
     switch (filter) {
@@ -68,7 +68,7 @@ export function TodoProvider({ children }) {
         return todos;
     }
   };
-  
+
   return (
     <TodoContext.Provider
       value={{

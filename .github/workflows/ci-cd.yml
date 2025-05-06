@@ -25,15 +25,21 @@ jobs:
       - name: App Build
         run: npm run build
 
-      - name: Run tests
-        run: npm run lint
+      - name: Run tests and generate HTML report
+        run: npx vitest run --reporter=default --reporter=html --outputFile=./test-results/index.html
 
       - name: Upload Test Report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: test-report
-          path: ./test-report
+          path: ./test-results/index.html
+
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: ./dist
 
   show-test-artifact:
     needs: build-test
@@ -45,11 +51,12 @@ jobs:
         with:
           name: test-report
           path: downloaded-test-report
-        continue-on-error: true
 
       - name: Show Test Report Content
-        run: ls -la downloaded-test-report && cat downloaded-test-report/test-results.xml || echo "No test report found"
-        continue-on-error: true
+        run: |
+          echo "Test report contents:"
+          ls -la downloaded-test-report
+          cat downloaded-test-report/index.html || echo "No test report found"
 
   deploy:
     needs: show-test-artifact
@@ -61,7 +68,6 @@ jobs:
         with:
           name: dist
           path: ./dist
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:

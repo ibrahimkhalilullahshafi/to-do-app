@@ -1,4 +1,3 @@
-
 import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect, vi } from 'vitest';
 import TodoItem from './TodoItem';
@@ -11,7 +10,7 @@ const mockDeleteTodo = vi.fn();
 // Create a wrapper component that provides the mocked context
 const renderWithContext = (ui, mockValues = {}) => {
   return render(
-    <TodoProvider value={{ 
+    <TodoProvider value={{
       toggleTodo: mockValues.toggleTodo || mockToggleTodo,
       deleteTodo: mockValues.deleteTodo || mockDeleteTodo,
     }}>
@@ -39,7 +38,7 @@ describe('TodoItem Component', () => {
     expect(screen.getByText('Test Todo')).toBeInTheDocument();
     expect(screen.getByText('Test description')).toBeInTheDocument();
   });
-  
+
   it('shows completed styling when todo is completed', () => {
     const todo = {
       id: '1',

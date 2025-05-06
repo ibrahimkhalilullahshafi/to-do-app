@@ -33,7 +33,7 @@ describe('TodoList Component', () => {
         createdAt: new Date().toISOString(),
       }
     ];
-    
+
     const mockFilteredTodos = vi.fn().mockReturnValue(todos);
 
     render(
@@ -46,3 +46,4 @@ describe('TodoList Component', () => {
     expect(screen.getByText('Test Todo 2')).toBeInTheDocument();
   });
 });
+
