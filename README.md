@@ -65,7 +65,7 @@ npm run build
 
 To check for code issues:
 ```sh
-npm run lint
+npx vitest run
 ```
 
 ### Preview
