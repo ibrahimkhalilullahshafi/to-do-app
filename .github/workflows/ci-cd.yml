@@ -58,23 +58,4 @@ jobs:
           ls -la downloaded-test-report
           cat downloaded-test-report/index.html || echo "No test report found"
 
-  deploy:
-    needs: show-test-artifact
-    runs-on: ubuntu-latest
-    if: success()
-    steps:
-      - name: Download Build Artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: ./dist
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '22'
   
-      - name: Install dependencies
-        run: npm install
-
-      - name: Run the app
-        run: npm run dev
